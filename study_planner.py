@@ -1,5 +1,12 @@
 subjects = []
 
+try:
+    with open("subjects.txt", "r") as file:
+        for line in file:
+            subjects.append(line.strip())
+except FileNotFoundError:
+    pass
+
 while True:
     print("\nSmart Study Planner")
     print("1. Add Subject")
@@ -11,6 +18,10 @@ while True:
     if choice == "1":
         subject = input("Enter subject name: ")
         subjects.append(subject)
+
+        with open("subjects.txt", "a") as file:
+            file.write(subject + "\n")
+
         print("Subject added!")
 
     elif choice == "2":
