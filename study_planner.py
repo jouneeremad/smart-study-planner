@@ -27,10 +27,12 @@ while True:
     print("3. Add Exam")
     print("4. View Exams")
     print("5. Generate Study Plan")
-    print("6. Exit")
+    print("6. Delete Subject")
+    print("7. Exit")
 
     choice = input("Choose an option: ")
 
+    # Add Subject
     if choice == "1":
         subject = input("Enter subject name: ")
         subjects.append(subject)
@@ -40,6 +42,7 @@ while True:
 
         print("Subject added successfully!")
 
+    # View Subjects
     elif choice == "2":
         print("\nSubjects:")
 
@@ -49,6 +52,7 @@ while True:
             for subject in subjects:
                 print("-", subject)
 
+    # Add Exam
     elif choice == "3":
         subject = input("Enter subject name: ")
 
@@ -65,6 +69,7 @@ while True:
 
         print("Exam added successfully!")
 
+    # View Exams
     elif choice == "4":
         print("\nUpcoming Exams:")
 
@@ -83,6 +88,7 @@ while True:
                 print(f"Exam Date: {exam_date}")
                 print(f"Days Left: {days_left}")
 
+    # Generate Study Plan
     elif choice == "5":
         print("\n===== Study Plan =====")
 
@@ -107,7 +113,31 @@ while True:
                         f"The exam for {subject} has already passed."
                     )
 
+    # Delete Subject
     elif choice == "6":
+        subject = input("Enter subject name to delete: ")
+
+        if subject in subjects:
+            subjects.remove(subject)
+
+            with open("subjects.txt", "w") as file:
+                for s in subjects:
+                    file.write(s + "\n")
+
+            if subject in exams:
+                del exams[subject]
+
+                with open("exams.txt", "w") as file:
+                    for sub, date in exams.items():
+                        file.write(f"{sub},{date}\n")
+
+            print("Subject deleted successfully!")
+
+        else:
+            print("Subject not found.")
+
+    # Exit
+    elif choice == "7":
         print("Goodbye!")
         break
 
